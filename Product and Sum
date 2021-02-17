@@ -1,0 +1,69 @@
+package algothon;
+
+import java.util.*;
+import java.util.stream.Stream;
+
+import javafx.util.Pair;
+
+class Solution {
+	
+	static String res = "IMPOSSIBLE";
+	
+ static void arith(int ar[],String arith[],int n,int num,int index) {
+	 System.out.println(n);
+	 if(res.equals("POSSIBLE")) {
+		 return;
+	 }
+	 if(n==num) {
+		 res = "POSSIBLE";
+		 return;
+	 }
+	
+	 if(index == ar.length) {
+		 return;
+	 }
+	 for (int i = 0; i < arith.length; i++) {
+		if(arith[i].equals("+")) {
+			n = n+ar[index];
+			index = index+1;
+			arith(ar,arith,n,num,index);
+			index = index-1;
+			n = n-ar[index];
+				
+		}else if(arith[i].equals("*")) {
+			n = n*ar[index];
+			index = index+1;
+			arith(ar,arith,n,num,index);
+			index = index-1;
+			n = n/ar[index];
+			
+		}else if(arith[i].equals("-")) {
+			n = n-ar[index];
+			index = index+1;
+			arith(ar,arith,n,num,index);
+			index = index-1;
+			n = n+ar[index];
+			
+		}
+	}
+	 
+ }
+	
+public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+		
+	int n = sc.nextInt();
+	int num = sc.nextInt();
+	sc.nextLine();
+	String arn[] =sc.nextLine().split(" ");
+	
+	int ar[] = new int[num];
+	for (int i = 0; i < num; i++) {
+		ar[i] = Integer.parseInt(arn[i]);
+	}
+	String arith[] = sc.nextLine().split(" ");
+	arith(ar,arith,ar[0],n,1);
+	System.out.println(res);
+	
+}
+}
